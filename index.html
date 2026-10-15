@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✦ O Grimório do Selo Secreto — Oráculo Múmia ✦</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎃</text></svg>">
+<style>
+  :root{
+    --ouro:#e0b252;
+    --ouro-claro:#f3d489;
+    --roxo-fundo:#12081f;
+    --roxo-painel:rgba(26,13,46,.88);
+    --verde-espectro:#8affc1;
+    --pergaminho:#efe0bd;
+    --tinta:#3a2a14;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    min-height:100vh;
+    font-family:Georgia,'Times New Roman',serif;
+    color:#e9dfc8;
+    background:
+      radial-gradient(ellipse at 50% -10%, #2b1550 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 110%, #1c0f38 0%, transparent 50%),
+      var(--roxo-fundo);
+    overflow-x:hidden;
+  }
+
+  /* ---------- cenário ---------- */
+  .estrelas span{position:fixed;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.7;
+    animation:cintilar 3s infinite;pointer-events:none;z-index:0}
+  @keyframes cintilar{0%,100%{opacity:.15}50%{opacity:.9}}
+
+  .lua{
+    position:fixed;top:48px;right:60px;width:130px;height:130px;border-radius:50%;
+    background:radial-gradient(circle at 38% 35%, #fdf6dc 0%, #e8d89a 55%, #c9b25e 100%);
+    box-shadow:0 0 60px 18px rgba(240,220,150,.28), inset -16px -14px 0 rgba(120,100,50,.25);
+    z-index:0;pointer-events:none;
+  }
+  .lua::before{content:'';position:absolute;top:26px;left:34px;width:22px;height:22px;border-radius:50%;
+    background:rgba(120,100,50,.28);box-shadow:44px 30px 0 4px rgba(120,100,50,.2), 12px 56px 0 -3px rgba(120,100,50,.22)}
+
+  .morcego{position:fixed;font-size:26px;z-index:1;pointer-events:none;filter:drop-shadow(0 2px 4px #000);
+    animation:voar linear infinite}
+  @keyframes voar{
+    0%{transform:translate(-8vw,12vh) rotate(-6deg)}
+    25%{transform:translate(25vw,6vh) rotate(8deg)}
+    50%{transform:translate(55vw,16vh) rotate(-8deg)}
+    75%{transform:translate(80vw,7vh) rotate(6deg)}
+    100%{transform:translate(112vw,13vh) rotate(-6deg)}
+  }
+
+  .nevoa{position:fixed;left:-25vw;bottom:-10vh;width:150vw;height:34vh;z-index:1;pointer-events:none;
+    background:radial-gradient(ellipse at 30% 60%, rgba(150,120,220,.20), transparent 60%),
+               radial-gradient(ellipse at 70% 40%, rgba(120,200,170,.12), transparent 55%);
+    filter:blur(28px);animation:neblina 46s ease-in-out infinite alternate}
+  .nevoa.n2{animation-duration:64s;animation-direction:alternate-reverse;opacity:.8}
+  @keyframes neblina{from{transform:translateX(-6vw)}to{transform:translateX(6vw)}}
+
+  .runa{position:fixed;z-index:1;color:rgba(224,178,82,.30);pointer-events:none;
+    font-size:22px;animation:flutuar ease-in-out infinite alternate;text-shadow:0 0 8px rgba(224,178,82,.35)}
+  @keyframes flutuar{from{transform:translateY(0) rotate(-8deg)}to{transform:translateY(-26px) rotate(10deg)}}
+
+  .vela{position:fixed;bottom:8px;font-size:52px;z-index:2;pointer-events:none;
+    animation:tremular 1.6s ease-in-out infinite}
+  .vela.esq{left:14px}.vela.dir{right:14px;animation-delay:.7s}
+  @keyframes tremular{0%,100%{filter:drop-shadow(0 0 10px rgba(255,170,60,.7))}50%{filter:drop-shadow(0 0 22px rgba(255,140,40,.95))}}
+
+  /* ---------- estrutura ---------- */
+  header{position:relative;z-index:3;text-align:center;padding:38px 16px 10px}
+  h1{
+    font-size:clamp(26px,4.6vw,44px);letter-spacing:.14em;
+    background:linear-gradient(180deg,var(--ouro-claro),var(--ouro) 60%,#a87b28);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 26px rgba(224,178,82,.25);
+  }
+  header p.sub{margin-top:10px;font-style:italic;color:#c8b78f;font-size:clamp(13px,2vw,16px)}
+  header .selo-linha{color:var(--ouro);opacity:.7;letter-spacing:.5em;margin-top:12px;font-size:14px}
+
+  main{position:relative;z-index:3;display:grid;grid-template-columns:1.2fr .9fr;gap:22px;
+    max-width:1120px;margin:26px auto 0;padding:0 18px}
+  @media(max-width:920px){main{grid-template-columns:1fr}}
+
+  .painel{
+    background:var(--roxo-painel);
+    border:1px solid rgba(224,178,82,.38);
+    border-radius:14px;
+    padding:22px;
+    box-shadow:0 0 0 1px rgba(0,0,0,.6), 0 12px 40px rgba(0,0,0,.55), inset 0 0 60px rgba(60,25,110,.35);
+    position:relative;
+  }
+  .painel h2{font-size:19px;letter-spacing:.12em;color:var(--ouro);margin-bottom:16px;text-align:center}
+  .painel h2::before,.painel h2::after{content:'✦';margin:0 10px;color:rgba(224,178,82,.6)}
+
+  /* ---------- tradutor ---------- */
+  .direcao{display:flex;gap:8px;margin-bottom:16px}
+  .dir{flex:1;padding:11px 6px;background:rgba(224,178,82,.08);border:1px solid rgba(224,178,82,.35);
+    color:#cbbd97;font-family:inherit;font-size:14px;letter-spacing:.06em;border-radius:8px;cursor:pointer;
+    transition:all .25s}
+  .dir.ativo{background:linear-gradient(180deg,#3a2066,#241243);color:var(--ouro-claro);
+    border-color:var(--ouro);box-shadow:0 0 14px rgba(224,178,82,.35)}
+  label{display:block;font-size:13px;letter-spacing:.08em;color:#c8b78f;margin:14px 0 6px;font-style:italic}
+  textarea{
+    width:100%;resize:vertical;min-height:88px;padding:12px;border-radius:8px;
+    background:rgba(5,2,12,.75);border:1px solid rgba(224,178,82,.3);color:#f1e8cf;
+    font-family:inherit;font-size:16px;line-height:1.5;transition:border .25s, box-shadow .25s;
+  }
+  textarea:focus{outline:none;border-color:var(--verde-espectro);box-shadow:0 0 14px rgba(138,255,193,.25)}
+  textarea[readonly]{background:rgba(10,6,20,.9);border-style:dashed}
+
+  .acoes{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+  button{font-family:inherit;cursor:pointer;border-radius:8px;transition:transform .15s, box-shadow .25s;border:none}
+  button:active{transform:translateY(1px)}
+  .btn-primario{
+    padding:12px 22px;font-size:15px;letter-spacing:.08em;font-weight:bold;color:#241203;
+    background:linear-gradient(180deg,var(--ouro-claro),var(--ouro) 65%,#b4863a);
+    box-shadow:0 0 18px rgba(224,178,82,.4);
+  }
+  .btn-primario:hover{box-shadow:0 0 28px rgba(224,178,82,.7);transform:translateY(-2px)}
+  .btn-sec{padding:10px 16px;font-size:14px;background:rgba(224,178,82,.12);color:var(--ouro-claro);
+    border:1px solid rgba(224,178,82,.4)}
+  .btn-sec:hover{background:rgba(224,178,82,.22)}
+  .btn-voz{padding:10px 16px;font-size:14px;color:#e6d7ff;border:1px solid rgba(160,110,255,.5);
+    background:linear-gradient(180deg,rgba(90,50,160,.55),rgba(50,25,100,.55))}
+  .btn-voz:hover{box-shadow:0 0 16px rgba(150,100,255,.5)}
+  .check{font-size:13px;color:#c8b78f;display:flex;align-items:center;gap:6px;font-style:normal;margin:0}
+  .check input{accent-color:var(--ouro)}
+
+  .controles-voz{margin-top:18px;padding-top:14px;border-top:1px dashed rgba(224,178,82,.3);
+    display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .controles-voz .full{grid-column:1/-1}
+  .controles-voz label{margin:0 0 4px;font-size:12px}
+  select{width:100%;padding:8px;border-radius:6px;background:#180c30;color:#eadfbe;
+    border:1px solid rgba(224,178,82,.35);font-family:inherit;font-size:13px}
+  input[type=range]{width:100%;accent-color:var(--ouro)}
+
+  /* ---------- oráculo ---------- */
+  .moldura{
+    position:relative;width:min(330px,92%);aspect-ratio:4/4.7;margin:6px auto 0;
+    border:2px solid rgba(224,178,82,.65);border-radius:170px 170px 20px 20px;
+    background:radial-gradient(circle at 50% 28%, #31175c 0%, #0a0518 70%);
+    overflow:hidden;box-shadow:inset 0 0 50px rgba(0,0,0,.8), 0 0 24px rgba(224,178,82,.2);
+    transition:box-shadow .4s;
+  }
+  .falando .moldura{box-shadow:inset 0 0 50px rgba(0,0,0,.8), 0 0 40px rgba(138,255,193,.55)}
+  .pentagrama{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+  .pentagrama svg{width:104%;opacity:.5;animation:girar 70s linear infinite}
+  @keyframes girar{to{transform:rotate(360deg)}}
+  .avatar{position:absolute;inset:0}
+  .avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;mix-blend-mode:screen}
+  #bocaAberta{opacity:0;transition:opacity .07s}
+  #bocaAberta.vis{opacity:1}
+  .falando .avatar{animation:trepidar .28s ease-in-out infinite alternate}
+  @keyframes trepidar{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+
+  .status{margin-top:16px;text-align:center;font-style:italic;color:var(--verde-espectro);
+    min-height:22px;font-size:14px;letter-spacing:.04em;text-shadow:0 0 10px rgba(138,255,193,.4)}
+  .tabua{margin-top:18px;text-align:center}
+  .tabua span{display:inline-block;width:24px;height:28px;line-height:28px;font-size:13px;color:#6d5f8f}
+  .tabua span.trocada{color:var(--ouro-claro);text-shadow:0 0 8px rgba(224,178,82,.8);font-weight:bold;
+    border-bottom:1px solid rgba(224,178,82,.5);cursor:help}
+
+  /* ---------- pergaminho ---------- */
+  .pergaminho{position:relative;z-index:3;max-width:1120px;margin:24px auto 0;padding:0 18px}
+  .pergaminho .painel{background:linear-gradient(180deg,rgba(46,30,12,.9),rgba(30,18,8,.92));
+    border-color:rgba(190,150,80,.4)}
+  #historico{list-style:none;max-height:230px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-right:6px}
+  #historico li{
+    background:var(--pergaminho);color:var(--tinta);border-radius:4px 14px 4px 14px;
+    padding:10px 14px;font-size:14px;box-shadow:0 3px 10px rgba(0,0,0,.5);cursor:pointer;
+    transition:transform .15s;position:relative;
+  }
+  #historico li:hover{transform:scale(1.01)}
+  #historico li .dir-tag{font-size:11px;letter-spacing:.14em;color:#8a6a2a;display:block;margin-bottom:3px}
+  #historico li .seta{color:#8a6a2a;margin:0 8px}
+  #historico .vazio{background:transparent;color:#a89372;box-shadow:none;font-style:italic;cursor:default;text-align:center}
+  #historico::-webkit-scrollbar{width:8px}
+  #historico::-webkit-scrollbar-thumb{background:rgba(224,178,82,.4);border-radius:4px}
+
+  footer{position:relative;z-index:3;text-align:center;padding:30px 16px 90px;color:#9a8a68;
+    font-size:13px;font-style:italic;line-height:1.7}
+  footer .selo-nota{color:#c8b078}
+
+  /* ---------- vitrola do canto ritual (música de fundo) ---------- */
+  .vitrola{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:5;
+    display:flex;align-items:center;gap:12px;padding:8px 16px;
+    background:var(--roxo-painel);border:1px solid rgba(224,178,82,.55);border-radius:40px;
+    box-shadow:0 6px 26px rgba(0,0,0,.65), 0 0 16px rgba(224,178,82,.18)}
+  .btn-musica{width:38px;height:38px;min-width:38px;border-radius:50%;font-size:16px;line-height:1;
+    background:linear-gradient(180deg,var(--ouro-claro),var(--ouro) 65%,#b4863a);color:#241203}
+  .btn-musica:hover{box-shadow:0 0 14px rgba(224,178,82,.6)}
+  .btn-musica.pulsar{animation:pulsar 1.3s ease-in-out infinite}
+  @keyframes pulsar{0%,100%{box-shadow:0 0 4px rgba(224,178,82,.5)}50%{box-shadow:0 0 24px 6px rgba(224,178,82,.95)}}
+  .vitrola-titulo{display:block;font-size:10px;letter-spacing:.16em;color:var(--ouro-claro);margin-bottom:4px;white-space:nowrap}
+  #volMusica{width:110px;accent-color:var(--ouro);display:block}
+  #ytPlayer{position:fixed;right:-400px;bottom:-400px;width:280px;height:158px;opacity:0;pointer-events:none}
+  @media(max-width:520px){.vitrola{bottom:8px;padding:6px 12px}#volMusica{width:70px}.vitrola-titulo{font-size:9px}}
+</style>
+</head>
+<body>
+
+<div class="estrelas" id="estrelas"></div>
+<div class="lua"></div>
+<span class="morcego" style="top:9vh;animation-duration:26s">🦇</span>
+<span class="morcego" style="top:20vh;animation-duration:37s;animation-delay:-14s;font-size:19px">🦇</span>
+<div class="nevoa"></div>
+<div class="nevoa n2"></div>
+<span class="vela esq">🕯️</span>
+<span class="vela dir">🕯️</span>
+
+<!-- ======== vitrola do canto ritual (trilha do YouTube) ======== -->
+<div class="vitrola" title="Cozy Autumn Village Halloween Ambience — Cozy Cottage (YouTube)">
+  <button id="btnMusica" class="btn-musica" title="invocar / calar o canto ritual">🎵</button>
+  <div>
+    <span class="vitrola-titulo">♫ CANTO DA VILA DE SAMHAIN</span>
+    <input type="range" id="volMusica" min="0" max="100" value="45" title="volume do canto">
+  </div>
+</div>
+<div id="ytPlayer"></div>
+
+<header>
+  <h1>✦ O GRIMÓRIO DO SELO SECRETO ✦</h1>
+  <p class="sub">Decifra as mensagens cifradas do teu círculo — e o Oráculo as profere em voz alta.</p>
+  <div class="selo-linha">☽ ✶ ☾</div>
+</header>
+
+<main>
+  <!-- ======== TRADUTOR ======== -->
+  <section class="painel">
+    <h2>RITUAL DE TRADUÇÃO</h2>
+
+    <div class="direcao">
+      <button class="dir ativo" id="dirPtCod">Português → Código</button>
+      <button class="dir" id="dirCodPt">Código → Português</button>
+    </div>
+
+    <label id="lblEntrada">📜 Escreve a mensagem profana:</label>
+    <textarea id="entrada" placeholder="ex.: o ritual começa à meia-noite, no discord..."></textarea>
+
+    <div class="acoes">
+      <button class="btn-primario" id="btnDecifrar">⚡ DECIFRAR O SELO</button>
+      <label class="check"><input type="checkbox" id="autoVoz" checked> o oráculo lê sozinho</label>
+    </div>
+
+    <label id="lblSaida">✶ A revelação:</label>
+    <textarea id="saida" readonly placeholder="as palavras decifradas surgirão aqui..."></textarea>
+
+    <div class="acoes">
+      <button class="btn-sec" id="btnCopiar">⧉ Copiar</button>
+      <button class="btn-voz" id="btnFalar">🔊 Invocar a Voz do Oráculo</button>
+      <button class="btn-sec" id="btnSilencio">🕯️ Silêncio sepulcral</button>
+    </div>
+
+    <div class="controles-voz">
+      <div class="full">
+        <label>Espírito que empresta a voz:</label>
+        <select id="selecaoVoz"></select>
+      </div>
+      <div>
+        <label>Tom da voz: <span id="tomVal">sepulcral</span></label>
+        <input type="range" id="tom" min="0.1" max="1.8" step="0.05" value="0.65">
+      </div>
+      <div>
+        <label>Cadência do rito: <span id="velVal">ritual</span></label>
+        <input type="range" id="vel" min="0.5" max="1.5" step="0.05" value="0.92">
+      </div>
+    </div>
+
+    <div class="tabua" id="tabua" title=""></div>
+  </section>
+
+  <!-- ======== ORÁCULO ======== -->
+  <section class="painel" id="painelOraculo">
+    <h2>O ORÁCULO</h2>
+    <div class="moldura">
+      <div class="pentagrama">
+        <svg viewBox="0 0 300 300">
+          <defs>
+            <path id="circuloTexto" d="M150,150 m-128,0 a128,128 0 1,1 256,0 a128,128 0 1,1 -256,0"/>
+          </defs>
+          <circle cx="150" cy="150" r="128" fill="none" stroke="#e0b252" stroke-width="1.4" opacity=".8"/>
+          <circle cx="150" cy="150" r="112" fill="none" stroke="#e0b252" stroke-width=".8" opacity=".6"/>
+          <circle cx="150" cy="150" r="64"  fill="none" stroke="#e0b252" stroke-width=".8" opacity=".6"/>
+          <path d="M150,45 L211.7,234.9 L50.1,117.6 L249.9,117.6 L88.3,234.9 Z"
+                fill="none" stroke="#e0b252" stroke-width="1.6" opacity=".9" stroke-linejoin="round"/>
+          <text font-size="15" fill="#e0b252" letter-spacing="7" opacity=".85">
+            <textPath href="#circuloTexto">א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת ✶</textPath>
+          </text>
+        </svg>
+      </div>
+      <div class="avatar">
+        <img id="bocaFechada" src="assets/mummy_closed.png" alt="Oráculo Múmia">
+        <img id="bocaAberta"  src="assets/mummy_open.png"   alt="">
+      </div>
+    </div>
+    <p class="status" id="status">O oráculo repousa em seu sarcófago…</p>
+  </section>
+</main>
+
+<!-- ======== PERGAMINHO ======== -->
+<section class="pergaminho">
+  <div class="painel">
+    <h2>PERGAMINHO DOS FEITIÇOS LANÇADOS</h2>
+    <ul id="historico">
+      <li class="vazio">Nenhum feitiço foi lançado nesta noite… ainda.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p class="selo-nota">☥ Este selo é um espelho: cifrar e decifrar são o mesmo rito. Aplicando-o duas vezes, a mensagem retorna à forma original. ☥</p>
+  <p>As letras sagradas trocam-se entre si: a⟷i · e⟷o · l⟷n · p⟷z · r⟷t</p>
+  <p>🎃 Forjado nas trevas sob a lua de Samhain 🎃</p>
+</footer>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+/* ═══════════════════════════════════════════
+   O SELO — mesma tábua do grimório em Python
+   (espelhada: cifrar e decifrar são o mesmo rito)
+   ═══════════════════════════════════════════ */
+const SELO = {a:'i', e:'o', i:'a', l:'n', n:'l', o:'e', p:'z', r:'t', t:'r', z:'p'};
+
+function traduzir(texto){
+  return [...texto].map(ch => {
+    const low = ch.toLowerCase();
+    if(SELO[low]){
+      const conv = SELO[low];
+      const ehMaiuscula = ch === ch.toUpperCase() && ch !== low;
+      return ehMaiuscula ? conv.toUpperCase() : conv;
+    }
+    return ch;
+  }).join('');
+}
+
+/* ---------- cenário gerado por feitiço ---------- */
+(function cenario(){
+  const est = document.getElementById('estrelas');
+  for(let i=0;i<46;i++){
+    const s = document.createElement('span');
+    s.style.left = Math.random()*100+'vw';
+    s.style.top  = Math.random()*100+'vh';
+    s.style.animationDelay = (Math.random()*4)+'s';
+    s.style.animationDuration = (2+Math.random()*4)+'s';
+    est.appendChild(s);
+  }
+  const simbolos = ['☽','☿','♄','♃','☉','✶','א','ב','ג','ד','ח','מ','ס','☠','♆','♇'];
+  simbolos.forEach((s)=>{
+    const el = document.createElement('span');
+    el.className='runa'; el.textContent=s;
+    el.style.left=(3+Math.random()*94)+'vw';
+    el.style.top =(5+Math.random()*80)+'vh';
+    el.style.fontSize=(14+Math.random()*18)+'px';
+    el.style.animationDuration=(5+Math.random()*7)+'s';
+    el.style.animationDelay=(-Math.random()*6)+'s';
+    document.body.appendChild(el);
+  });
+
+  /* tábua alfabética do selo */
+  const tabua = document.getElementById('tabua');
+  'abcdefghijklmnopqrstuvwxyz'.split('').forEach(l=>{
+    const sp = document.createElement('span');
+    sp.textContent = l;
+    if(SELO[l]){ sp.classList.add('trocada'); sp.title = l+' ⟷ '+SELO[l]; }
+    tabua.appendChild(sp);
+  });
+})();
+
+/* ---------- elementos ---------- */
+const $ = id => document.getElementById(id);
+const entrada=$('entrada'), saida=$('saida'), status_=$('status'),
+      dirPtCod=$('dirPtCod'), dirCodPt=$('dirCodPt'),
+      lblEntrada=$('lblEntrada'), lblSaida=$('lblSaida'),
+      painelOraculo=$('painelOraculo'), bocaAberta=$('bocaAberta'),
+      historico=$('historico');
+
+let direcao='pt2cod'; /* 'pt2cod' | 'cod2pt' */
+
+function definirDirecao(d){
+  direcao=d;
+  dirPtCod.classList.toggle('ativo', d==='pt2cod');
+  dirCodPt.classList.toggle('ativo', d==='cod2pt');
+  if(d==='pt2cod'){
+    lblEntrada.textContent='📜 Escreve a mensagem profana:';
+    entrada.placeholder='ex.: o ritual começa à meia-noite, no discord...';
+    lblSaida.textContent='✶ A mensagem selada (código):';
+  }else{
+    lblEntrada.textContent='📜 Escreve a mensagem selada:';
+    entrada.placeholder='ex.: e taraun amoca y maa-lehra, le dtscetd...';
+    lblSaida.textContent='✶ A revelação (português):';
+  }
+  entrada.value=''; saida.value='';
+}
+dirPtCod.onclick=()=>definirDirecao('pt2cod');
+dirCodPt.onclick=()=>definirDirecao('cod2pt');
+
+/* ---------- a voz do além (speechSynthesis) ---------- */
+let vozes=[], bocaTimer=null, keepAlive=null;
+
+/* ---------- o canto ritual (trilha sonora do YouTube) ---------- */
+let tocador=null, musicaTocando=false, volumeMusica=45;
+const btnMusica=$('btnMusica'), volMusica=$('volMusica');
+
+window.onYouTubeIframeAPIReady=function(){
+  try{
+    tocador=new YT.Player('ytPlayer',{
+      height:'158', width:'280',
+      videoId:'vuPhCSunt5U',
+      playerVars:{autoplay:1, loop:1, playlist:'vuPhCSunt5U', controls:0, disablekb:1,
+                  fs:0, iv_load_policy:3, modestbranding:1, playsinline:1, rel:0},
+      events:{
+        onReady:e=>{ e.target.setVolume(volumeMusica); e.target.playVideo(); },
+        onStateChange:e=>{
+          if(e.data===YT.PlayerState.PLAYING){ musicaTocando=true; btnMusica.classList.remove('pulsar'); btnMusica.textContent='⏸️'; }
+          if(e.data===YT.PlayerState.PAUSED){ musicaTocando=false; btnMusica.textContent='🎵'; }
+        }
+      }
+    });
+    /* navegadores exigem um gesto humano antes de soltar a voz —
+       se o autoplay for barrado, o botão pulsa, chamando a alma */
+    setTimeout(()=>{
+      try{
+        if(tocador && tocador.getPlayerState && tocador.getPlayerState()!==YT.PlayerState.PLAYING){
+          btnMusica.classList.add('pulsar');
+          btnMusica.title='os navegadores exigem um gesto humano… clique para invocar o canto';
+        }
+      }catch(err){}
+    },3000);
+  }catch(err){ btnMusica.title='o canto ritual não respondeu nesta noite…'; }
+};
+
+btnMusica.onclick=()=>{
+  if(!window.YT || !tocador || !tocador.playVideo){
+    status_.textContent='O canto não ecoou… (a trilha precisa de internet para atravessar o véu)';
+    return;
+  }
+  if(musicaTocando){ tocador.pauseVideo(); }
+  else{ btnMusica.classList.remove('pulsar'); tocador.playVideo(); }
+};
+volMusica.oninput=e=>{
+  volumeMusica=parseInt(e.target.value,10);
+  if(tocador && tocador.setVolume) tocador.setVolume(volumeMusica);
+};
+
+function carregarVozes(){
+  vozes = speechSynthesis.getVoices();
+  const sel=$('selecaoVoz');
+  sel.innerHTML='';
+  if(!vozes.length){
+    sel.innerHTML='<option value="">(voz padrão do teu grimo— navegador)</option>';
+    return;
+  }
+  vozes.forEach((v,i)=>{
+    const o=document.createElement('option');
+    o.value=i; o.textContent=`${v.name} (${v.lang})`;
+    sel.appendChild(o);
+  });
+  const pt = vozes.findIndex(v=>/^pt([-_]BR)?/i.test(v.lang));
+  sel.value = pt>=0 ? pt : 0;
+}
+if('speechSynthesis' in window){
+  carregarVozes();
+  speechSynthesis.onvoiceschanged = carregarVozes;
+}else{
+  status_.textContent='Teu navegador não conhece a arte da voz… apenas a tábua escrita servirá.';
+}
+
+const frasesFala=[
+  'O oráculo profere as palavras sagradas…',
+  'Bandagens tremem… a múmia fala!',
+  'Do fundo do sarcófago, ergue-se a voz…',
+  'Os espíritos emprestam sua língua ao oráculo…'
+];
+const frasesFim=[
+  'Assim foi dito. Assim está selado.',
+  'O oráculo volta a repousar…',
+  'Silêncio retorna à cripta.',
+  'Que as 72 chaves guardem estas palavras.'
+];
+
+function agitarBoca(){
+  painelOraculo.classList.add('falando');
+  if(tocador && musicaTocando && tocador.setVolume) tocador.setVolume(12); /* a música se curva diante da voz do oráculo */
+  status_.textContent = frasesFala[Math.floor(Math.random()*frasesFala.length)];
+  bocaTimer=setInterval(()=>{ bocaAberta.classList.toggle('vis', Math.random()>0.45); },130);
+  keepAlive=setInterval(()=>{ if(speechSynthesis.speaking) speechSynthesis.resume(); },5000);
+}
+function aquietarBoca(fim=true){
+  clearInterval(bocaTimer); clearInterval(keepAlive);
+  if(tocador && musicaTocando && tocador.setVolume) tocador.setVolume(volumeMusica); /* o canto ressurge das sombras */
+  bocaAberta.classList.remove('vis');
+  painelOraculo.classList.remove('falando');
+  if(fim) status_.textContent = frasesFim[Math.floor(Math.random()*frasesFim.length)];
+}
+
+function falar(texto){
+  if(!('speechSynthesis' in window) || !texto.trim()) return;
+  speechSynthesis.cancel();
+  const rito = new SpeechSynthesisUtterance(texto);
+  rito.lang='pt-BR';
+  const sel=$('selecaoVoz');
+  if(vozes.length && sel.value!=='') rito.voice=vozes[sel.value];
+  rito.pitch=parseFloat($('tom').value);
+  rito.rate =parseFloat($('vel').value);
+  rito.onstart=agitarBoca;
+  rito.onend=()=>aquietarBoca(true);
+  rito.onerror=()=>aquietarBoca(true);
+  speechSynthesis.speak(rito);
+}
+
+/* rótulos vivos dos controles */
+$('tom').oninput=e=>{
+  const v=parseFloat(e.target.value);
+  $('tomVal').textContent = v<0.4?'abissal':v<0.85?'sepulcral':v<1.2?'mortal':'ectoplásmico';
+};
+$('vel').oninput=e=>{
+  const v=parseFloat(e.target.value);
+  $('velVal').textContent = v<0.7?'lúgubre':v<1.05?'ritual':v<1.3?'apressado':'frenético';
+};
+
+/* ---------- o ritual propriamente dito ---------- */
+$('btnDecifrar').onclick=()=>{
+  const t=entrada.value;
+  if(!t.trim()){ status_.textContent='O pergaminho está em branco… escreve algo primeiro.'; return; }
+  const r=traduzir(t);
+  saida.value=r;
+  registrarNoPergaminho(t,r);
+  if($('autoVoz').checked){
+    falar(direcao==='pt2cod' ? t : r); /* o oráculo sempre lê em português */
+  }
+};
+
+$('btnFalar').onclick=()=>{
+  const texto = direcao==='pt2cod' ? entrada.value : saida.value;
+  if(!texto.trim()){ status_.textContent='Nada há para ser proferido…'; return; }
+  falar(texto);
+};
+$('btnSilencio').onclick=()=>{ speechSynthesis.cancel(); aquietarBoca(false); status_.textContent='🕯️ Silêncio sepulcral instaurado.'; };
+
+$('btnCopiar').onclick=async ()=>{
+  if(!saida.value) return;
+  try{ await navigator.clipboard.writeText(saida.value); }
+  catch(e){
+    saida.removeAttribute('readonly'); saida.select();
+    document.execCommand('copy'); saida.setAttribute('readonly','');
+  }
+  const b=$('btnCopiar'); b.textContent='✓ Copiado!';
+  setTimeout(()=>b.textContent='⧉ Copiar',1500);
+};
+
+/* ---------- pergaminho dos feitiços ---------- */
+const feiticos=[];
+function registrarNoPergaminho(e,r){
+  feiticos.unshift({d:direcao, e, r});
+  if(feiticos.length>12) feiticos.pop();
+  historico.innerHTML='';
+  feiticos.forEach(f=>{
+    const li=document.createElement('li');
+    const tag=f.d==='pt2cod'?'PORTUGUÊS ➜ SELO':'SELO ➜ PORTUGUÊS';
+    li.innerHTML=`<span class="dir-tag">${tag}</span><span></span><span class="seta">⟶</span><b></b>`;
+    li.children[1].textContent = f.e.length>60 ? f.e.slice(0,60)+'…' : f.e;
+    li.children[3].textContent = f.r.length>60 ? f.r.slice(0,60)+'…' : f.r;
+    li.title='clique para reutilizar no ritual';
+    li.onclick=()=>{ definirDirecao(f.d); entrada.value=f.e; saida.value=f.r; entrada.focus(); };
+    historico.appendChild(li);
+  });
+}
+
+/* decifrar com Ctrl+Enter */
+entrada.addEventListener('keydown',ev=>{
+  if(ev.key==='Enter'&&(ev.ctrlKey||ev.metaKey)) $('btnDecifrar').click();
+});
+</script>
+</body>
+</html>
